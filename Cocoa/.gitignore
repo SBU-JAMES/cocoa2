@@ -26,7 +26,7 @@ external_modules/data/simons_observatory/
 external_modules/data/h0licow_distance_chains/
 
 set_installation_options
-compile_external_modules
+#compile_external_modules
 setup_cocoa_installation_packages
 start_cocoa
 stop_cocoa
@@ -50,6 +50,8 @@ external_modules/data/des_y3
 external_modules/data/des_4x2ptN
 external_modules/data/kids
 external_modules/data/cocoa_*
+external_modules/data/james
+external_modules/data/alexa
 
 external_modules/code/XXX
 external_modules/code/des_y1
@@ -61,6 +63,8 @@ external_modules/code/des_y3
 external_modules/code/des_4x2ptN
 external_modules/code/kids
 external_modules/code/cocoa_*
+external_modules/code/james
+external_modules/code/alexa
 
 cobaya/cobaya/likelihoods/XXX
 cobaya/cobaya/likelihoods/des_y1
@@ -72,3 +76,5 @@ cobaya/cobaya/likelihoods/des_y3
 cobaya/cobaya/likelihoods/des_4x2ptN
 cobaya/cobaya/likelihoods/kids
 cobaya/cobaya/likelihoods/cocoa_*
+cobaya/cobaya/likelihoods/james
+cobaya/cobaya/likelihoods/alexa
