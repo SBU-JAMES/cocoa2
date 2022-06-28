@@ -88,6 +88,10 @@ fi
 
 source $ROOTDIR/installation_scripts/compile_camb
 
+source $ROOTDIR/installation_scripts/compile_camb_james
+
+source $ROOTDIR/installation_scripts/compile_camb_alexa
+
 source $ROOTDIR/installation_scripts/compile_polychord
 
 source $ROOTDIR/installation_scripts/compile_planck
