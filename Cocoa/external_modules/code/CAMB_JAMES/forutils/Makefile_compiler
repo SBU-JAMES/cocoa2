@@ -7,11 +7,15 @@ MAKEOPT = --no-print-directory
 # F90RELEASEFLAGS: These flags are only used for creating Release artefacts
 
 # For standalone compiling set the compiler
-ifneq ($(COMPILER),gfortran)
-ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
-else
+#VM BEGINS
+# For standalone compiling set the compiler
+#ifneq ($(COMPILER),gfortran)
+#ifortErr = $(shell which ifort >/dev/null 2>&1; echo $$?)
+#else
+#ifortErr = 1
+#endif
 ifortErr = 1
-endif
+#VM ENDS
 
 ifeq "$(ifortErr)" "0"
 
