@@ -104,6 +104,7 @@ contains
             end if            
        
        else
+           
            ! w_de = this%w0
            if (a > this%a_min) then
                w_de = this%w0
@@ -117,8 +118,8 @@ contains
                end do
            else
                w_de = -1.0
-           end if
-                 
+           end if         
+       
        end if
 
     end function w_de  
@@ -138,16 +139,7 @@ contains
             endif
         
         else if (this%state == 1) then
-!            if (a > this%a3) then
-!                res = a**(-3*this%w3 + 1) * this%a3**(-3*(this%w2 - this%w3)) * this%a2**(-3*(this%w1 - this%w2)) * this%a1**(-3*(this%w0 - this%w1))
-!            else if (a > this%a2) then
-!                res = a**(-3*this%w2 + 1) * this%a2**(-3*(this%w1 - this%w2)) * this%a1**(-3*(this%w0 - this%w1))
-!            else if (a > this%a1) then
-!                res = a**(-3*this%w1 + 1) * this%a1**(-3*(this%w0 - this%w1))
-!            else
-!                res = a**(-3*this%w0 + 1)
-!            end if                          ! -- is the order of these boundary conditions correct (i.e. different from integrating over z)
-
+        
             if (a > this%a3) then
                 res = a**(-3*this%w3 + 1)
             else if (a > this%a2) then
