@@ -245,4 +245,4 @@ sampler:
       ps_A_143_217: 30.2718
       ps_A_217_217: 109.975
 
-output: ./projects/example/chains/EXAMPLE_EVALUATE2
+output: ./projects/james/chains/EXAMPLE_EVALUATE2
