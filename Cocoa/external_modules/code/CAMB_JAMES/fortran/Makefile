@@ -121,7 +121,9 @@ NONNATIVE = 1
 endif
 ifndef NONNATIVE
 #Note this seems to make code slightly slower in some cases, use CLUSTER_SAFE=1 to test without
-FFLAGS+=-march=native
+#VM BEGINS
+#FFLAGS+=-march=native
+#VM ENDS
 endif
 endif
 endif
