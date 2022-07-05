@@ -87,14 +87,7 @@ params:
     proposal: 0.003
     latex: \tau_\mathrm{reio}
   w0:
-    prior:
-      min: -5 
-      max: -0.01
-    ref:
-      dist: norm
-      loc: -0.99
-      scale: 0.05
-    proposal: 0.05
+    value: 0.0
     latex: w_{0,\mathrm{DE}}
   w1:
     prior:
@@ -126,6 +119,12 @@ params:
       scale: 0.05
     proposal: 0.05
     latex: w_{3,\mathrm{DE}}
+  w4:
+    value: 0.0
+    latex: w_{4,\mathrm{DE}}
+  w5:
+    value: 0.0
+    latex: w_{5,\mathrm{DE}}
   omegal:
     latex: \Omega_\Lambda
   omegam:
@@ -222,7 +221,6 @@ sampler:
       omegabh2: 0.022383
       omegach2: 0.12011
       tau: 0.0543
-      w0: -0.968859
       w1: -0.768859
       w2: -0.968859
       w3: -0.968859

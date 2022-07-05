@@ -96,10 +96,6 @@ params:
       scale: 0.006
     proposal: 0.003
     latex: \tau_\mathrm{reio}
-  w0pw1:
-    value: 'lambda w0: w0'
-    latex: w_{0,\mathrm{DE}}+w_{1,\mathrm{DE}}
-    drop: true
   w0:
     prior:
       min: -5 
@@ -111,7 +107,7 @@ params:
     proposal: 0.05
     latex: w_{0,\mathrm{DE}}
   w1:
-    value: 'lambda w0pw1, w0: w0pw1 - w0'
+    value: 0.0
     derived: false
     latex: w_{a,\mathrm{DE}}
   omegal:
