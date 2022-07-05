@@ -6,7 +6,7 @@
 #SBATCH --ntasks-per-node=4
 #SBATCH --ntasks-per-socket=2
 #SBATCH --cpus-per-task=10
-#SBATCH --time=60:00:00
+#SBATCH --time=30:00:00
 #SBATCH --partition=standard
 #SBATCH --account=cosmolike
 
@@ -33,4 +33,4 @@ else
   export OMP_NUM_THREADS=1
 fi
 
-mpirun -n ${SLURM_NTASKS} --mca btl tcp,self --bind-to core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/des_y3/EXAMPLE_MCMC${SLURM_ARRAY_TASK_ID}.yaml -r
+mpirun -n ${SLURM_NTASKS} --mca btl tcp,self --bind-to core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/james/EXAMPLE_MCMC${SLURM_ARRAY_TASK_ID}.yaml -r
