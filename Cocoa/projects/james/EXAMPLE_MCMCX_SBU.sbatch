@@ -1,20 +1,15 @@
 #!/bin/bash
 
 #SBATCH --job-name=wbin
-#SBATCH --output=WBIN-%A_%a.out
+#SBATCH --output=DY3-%A_%a.out
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
-#SBATCH --ntasks-per-socket=2
-#SBATCH --cpus-per-task=10
-#SBATCH --time=60:00:00
-#SBATCH --partition=standard
-#SBATCH --account=cosmolike
+#SBATCH --cpus-per-task=7
+#SBATCH --partition=long-28core
+#SBATCH -t 48:00:00
 
 # Clear the environment from any previously loaded modules
 module purge > /dev/null 2>&1
-module load anaconda
-conda init bash
-source ~/.bashrc 
 
 echo Running on host `hostname`
 echo Time is `date`

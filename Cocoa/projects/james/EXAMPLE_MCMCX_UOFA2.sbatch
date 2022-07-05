@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=DESY3_MC1
-#SBATCH --output=DY3-%A_%a.out
+#SBATCH --job-name=wbin
+#SBATCH --output=WBIN-%A_%a.out
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
 #SBATCH --ntasks-per-socket=2
@@ -24,7 +24,7 @@ echo Slurm job NAME is $SLURM_JOB_NAME
 echo Slurm job ID is $SLURM_JOBID
 
 cd $SLURM_SUBMIT_DIR
-conda activate cocoaemu
+conda activate cocoa
 source start_cocoa
 
 echo Cocoa Conda environment Activated
