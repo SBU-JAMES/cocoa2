@@ -13,7 +13,7 @@ cd $ROOTDIR/projects
 # create tmp .gitignore and include all projects in it
 touch $ROOTDIR/projects/.gitignore
 
-for NAME in $(find . -mindepth 1 -maxdepth 1 -type d ! -name 'example'); do
+for NAME in $(find . -mindepth 1 -maxdepth 1 -type d ! -name 'example' ! -name 'james' ! -name 'alexa'); do
   declare NAME2=$(echo "${NAME}" | sed -E 's@./@@')
   if [ ! -d "$ROOTDIR/projects/$NAME2/scripts" ]; then
     echo "Warning: directory $ROOTDIR/projects/$NAME2/scripts DOES NOT exists."
