@@ -87,14 +87,7 @@ params:
     proposal: 0.003
     latex: \tau_\mathrm{reio}
   w0:
-    prior:
-      min: -5 
-      max: -0.01
-    ref:
-      dist: norm
-      loc: -0.99
-      scale: 0.05
-    proposal: 0.05
+    value: -1.0
     latex: w_{0,\mathrm{DE}}
   w1:
     prior:
@@ -210,7 +203,7 @@ theory:
       num_massive_neutrinos: 1
       nnu: 3.046
       dark_energy_model: ppf
-      state: 2
+      de_sim: 3
       a_min: 0.25
 
 sampler:
@@ -222,7 +215,6 @@ sampler:
       omegabh2: 0.022383
       omegach2: 0.12011
       tau: 0.0543
-      w0: -0.968859
       w1: -0.768859
       w2: -0.968859
       w3: -0.968859

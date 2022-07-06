@@ -151,7 +151,6 @@ contains
             end if
             
         else
-           ! res = a**(-3*this%w0 + 1)
            w_list(1) = this%w1
            w_list(2) = this%w2
            w_list(3) = this%w3
@@ -160,12 +159,12 @@ contains
            if (a > this%a_min) then
                res = a**(-3*this%w0 + 1)
                do i = 1, 5, 1
-                   res = res * a**(-3*w_list(i)*(log(a**(-1))**i))
+                   res = res * a**(-3*w_list(i)*(log(1.0/a)**i))
                end do
            else
                res = a**4*this%a_min**(-3*this%w0-3)
                do i = 1, 5, 1
-                   res = res * this%a_min**(-3*w_list(i)*(log(this%a_min**(-1))**i))
+                   res = res * this%a_min**(-3*w_list(i)*(log(1.0/this%a_min)**i))
                end do                                ! -- is my above boundary condition for transition at a_min correct?
            end if            
         

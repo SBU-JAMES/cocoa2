@@ -210,10 +210,10 @@ theory:
       num_massive_neutrinos: 1
       nnu: 3.046
       dark_energy_model: ppf
-      state: 1
-      a1: 0.571428
-      a2: 0.416666
-      a3: 0.322580
+      de_sim: 2
+      abound3: 0.571428
+      abound2: 0.416666
+      abound1: 0.322580
       a_min: 0.25
 
 sampler:
@@ -225,10 +225,10 @@ sampler:
       omegabh2: 0.022383
       omegach2: 0.12011
       tau: 0.0543
-      w0: -0.968859
-      w1: -0.768859
-      w2: -0.968859
       w3: -0.968859
+      w2: -0.768859
+      w1: -0.968859
+      w0: -0.968859
       A_planck: 1.00138
       calib_100T: 1.00136
       calib_217T: 0.997534
