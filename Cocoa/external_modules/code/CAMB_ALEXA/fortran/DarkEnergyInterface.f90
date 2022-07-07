@@ -42,8 +42,7 @@ private
     
 contains
 
-    subroutine Init(this, State)
-        
+    subroutine Init(this, State)   
         use classes
         class(TDarkEnergyModel), intent(inout) :: this
         class(TCAMBdata), intent(in), target :: State
@@ -72,131 +71,100 @@ contains
         this%a_min = Ini%Read_Double('a_min', 0.d0)
         this%de_sim = Ini%Read_Int('de_sim', 1)
         
-      
-
     end subroutine ReadParams
 
 
     function w_de(this, a)
 
-        
         class(TDarkEnergyModel) :: this
         real(dl) :: w_de
         real(dl), intent(IN) :: a
         integer :: i
-        real(dl), dimension (3) :: alpha
-        
-        
+        real(dl), dimension (4) :: alpha
         
         if (this%de_sim==0) then !wa, w0 model (original)
-
-            w_de = this%w0 + this%w1*(1._dl-a)
-        
+            if (a<0.5) then
+                w_de = this%w0
+            else if (a>this%a_min) then
+                w_de = this%w1
+            else 
+                w_de = -1
+            end if    
         end if
         
         if (this%de_sim==1)then  !two-step model 
-            
             if (a<this%a_min) then
                 w_de=-1
             else if (a<this%abound1) then
                 w_de = this%w0
             else 
                 w_de = this%w1
-            end if
-            
+            end if  
         end if
         
-        if (this%de_sim==2)then   !four-step model 
-                     
+        if (this%de_sim==2)then   !four-step model             
             if (a<this%a_min) then
-            
-                w_de = -1
-            
+                w_de=-1
             else if (a<this%abound1) then
-            
                 w_de = this%w0
-                
             else if (a<this%abound2) then
-            
                 w_de = this%w1
-                
             else if (a<this%abound3) then
-            
-                w_de = this%w2
-            
+                w_de=this%w2
             else
-
-                w_de = this%w3
-              
-            end if
-                 
-         end if
+                w_de=this%w3   
+            end if    
+        end if
          
-         if (this%de_sim == 3)then  !natural log model 
-         
-             if (a < this%a_min) then
-                
-                w_de = -1
-             
-             else
-                
+        if (this%de_sim == 3)then  !natural log model 
+            if (a < this%a_min) then
+                w_de=-1
+            else
                 alpha(1) = this%w1
                 alpha(2) = this%w2
                 alpha(3) = this%w3
+                alpha(4) = this%w4
 
-                w_de = this%w0
-                
-                do i = 1, 3, 1
+                w_de = this%w0      
+                do i = 1, 4, 1
                     w_de = w_de + alpha(i)*(log(1.0/a))**(i)
-                end do 
-
-            endif    
-              
-          end if
+                end do  
+            endif          
+        end if
 
     end function w_de  
     
            
 
     function grho_de(this, a) result(res) ! relative density (8 pi G a^4 rho_de / grhov)
-        
+
         class(TDarkEnergyModel) :: this
         real(dl), intent(IN) :: a
         real(dl) :: res
-        real(dl), dimension (3) :: alpha
+        real(dl), dimension (4) :: alpha
         integer :: i
-        
-       
-        
+           
         if (this%de_sim == 0)then !wa, w0 model (original)
-             
             res = a ** (1._dl - 3. * this%w0 - 3. * this%w1)
             if (this%w1 /= 0) then 
                 res = res*exp(-3. * this%w1 * (1._dl - a))
             endif
-
         end if
-        
-        
+         
         if (this%de_sim==1)then !two-step model
-            
             if (a < this%a_min) then
                 res = a**4 * this%abound1**(-3*(this%w1 - this%w0)) *this%a_min**(-3*(this%w0+1))
-                
             else if (a < this%abound1) then
                 res = a**(-3*this%w0 + 1) * this%abound1**(-3*(this%w1 - this%w0))
             else
                 res = a**(-3*this%w1 + 1)
             end if
-
         end if
         
-        if (this%de_sim==2)then !four-step model
-            
+        if (this%de_sim==2)then !four-step model 
            if (a < this%a_min) then
                 res = a**4 * this%abound3**(-3*(this%w3 - this%w2)) * &
                     this%abound2**(-3*(this%w2 - this%w1)) * this%abound1**(-3*(this%w1 - this%w0)) * this%a_min**(-3*(this%w0+1))
-                
             else if (a < this%abound1) then
                 res = a**(-3*this%w0 + 1) * this%abound3**(-3*(this%w3 - this%w2)) * &
                     this%abound2**(-3*(this%w2 - this%w1)) * this%abound1**(-3*(this%w1 - this%w0))
@@ -211,26 +179,25 @@ contains
         
         end if
         
-        if (this%de_sim==3)then !natural log model
-            
+        if (this%de_sim==3)then !natural log model    
             alpha(1) = this%w1
             alpha(2) = this%w2
             alpha(3) = this%w3
+            alpha(4) = this%w4
           
-          if (a < this%a_min) then
-                res = a**4*this%a_min**(-3*this%w0-3)
-                do i = 1, 3, 1
-                    res = res * a**(-3*(alpha(i)*(log(1.0/this%a_min))**(i))/(i+1))
+            if (a < this%a_min) then
+                res = (a**4)*this%a_min**(-3*this%w0 - 3)
+                do i = 1, 4, 1
+                    res = res * this%a_min**(-3*(alpha(i)*(log(1.0/this%a_min))**(i))/(i+1))
                 end do     
             else
                 res = a**(-3*this%w0 + 1)
-                do i = 1, 3, 1
-                    res = res * a**(-3*(alpha(i)*(log(1.0/a))**i)/(i+1))
+                do i = 1, 4, 1
+                    res = res * a**(-3*(alpha(i)*(log(1.0/a))**(i))/(i+1))
                 end do 
             endif
-
-         end if 
-      
+        end if 
+           
     end function grho_de
 
     function grhot_de(this, a) result(res) ! Get grhov_t = 8*pi*rho_de*a**2
